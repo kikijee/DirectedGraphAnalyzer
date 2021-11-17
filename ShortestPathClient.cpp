@@ -21,4 +21,5 @@ int main(){
     a.create_shortest_path_table('B','F');
     a.display_shortest_path_table();
     a.display_table();
+    std::cout<<"check";
 }
