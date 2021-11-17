@@ -22,6 +22,8 @@ struct AdjacentList{
     AdjacentList():vertex_(' '),outDegree_(-1),headLL_(nullptr){}
     void add_front(char,int);
     void display_list();
+    int return_time(char);
+    class EmptyList{};
 };
 // verticies will be A-Z (0-25) for array index
 class Area{
@@ -34,7 +36,7 @@ private:
 public:
     Area(int num):num_verticies_(num),count_used_(0),tree_(' '){
         arr_adjacency = new AdjacentList[num_verticies_];
-        arr_shortest_path_table = new ShortestPathTable[num_verticies_-1];
+        arr_shortest_path_table = new ShortestPathTable[num_verticies_];
     }
     class BadVertex{};
     //~Area();
@@ -49,7 +51,9 @@ public:
     // uses return from above and displays linked list
     void display_linked_list(AdjacentNode*);
     //
-    void display_shortest_path(int,int);
+    void create_shortest_path_table(char,char);
+    //
+    void display_shortest_path_table();
 };
 
 #endif
