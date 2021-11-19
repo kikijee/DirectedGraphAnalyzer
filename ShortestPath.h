@@ -50,10 +50,12 @@ public:
     AdjacentNode* find_adjacent(char);
     // uses return from above and displays linked list
     void display_linked_list(AdjacentNode*);
-    //
+    // creates the shortest path table using dijkstra's algorithm
     void create_shortest_path_table(char,char);
-    //
+    // displays the shortest path table
     void display_shortest_path_table();
+    // displays the certain path from tree_ to char along with the amount of time it will take
+    void display_path(char);
 };
 
 #endif

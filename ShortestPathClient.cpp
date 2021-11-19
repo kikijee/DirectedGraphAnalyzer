@@ -2,7 +2,7 @@
 #include "ShortestPath.h"
 
 int main(){
-    Area a(8);
+    Area a(6);
     a.read_table();
     a.display_table();
     char value;
@@ -18,7 +18,8 @@ int main(){
             catch(Area::BadVertex){std::cerr<<"no such vertex exists"<<std::endl;}
         }
     }
-    a.create_shortest_path_table('A','F');
+    a.create_shortest_path_table('C','E');
     a.display_shortest_path_table();
+    a.display_path('E');
     //a.display_table();
 }
