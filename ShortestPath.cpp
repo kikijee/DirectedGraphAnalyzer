@@ -85,20 +85,19 @@ void Area::display_linked_list(AdjacentNode* p){
 }
 
 void Area::create_shortest_path_table(char from, char to){
-    if(tree_ == ' '){arr_shortest_path_table[int(from)-65].state_ = 'T';}
+    if(tree_ == ' '){arr_shortest_path_table[int(from)-65].state_ = 'T';}   // first call of function to automatically mark from as tree
     tree_ = from;
-    AdjacentNode* p = arr_adjacency[int(from)-65].headLL_;
-    if(p == nullptr){return;}
-    else{
-        while(p != nullptr){
-            if(arr_shortest_path_table[int(p->vertex_)-65].state_ != 'T'){
-                if(arr_shortest_path_table[int(p->vertex_)-65].state_ == 'F'){
+    AdjacentNode* p = arr_adjacency[int(tree_)-65].headLL_; // points to head of adjacencys of current tree value
+    if(p != nullptr){   // if tree value has no adjacencys then skip to checking the table part
+        while(p != nullptr){    // if so then goes through the linked list marking all U as F and checking if there is a shorter time for values already marked F
+            if(arr_shortest_path_table[int(p->vertex_)-65].state_ != 'T'){  // if marked T already dont do anything
+                if(arr_shortest_path_table[int(p->vertex_)-65].state_ == 'F'){  // if marked F check if there is a shorter time availible, and if so update the time and from
                     if(arr_shortest_path_table[int(p->vertex_)-65].time_ > arr_shortest_path_table[int(tree_)-65].time_+arr_adjacency[int(tree_)-65].return_time(p->vertex_)){
                         arr_shortest_path_table[int(p->vertex_)-65].time_ = arr_shortest_path_table[int(tree_)-65].time_+arr_adjacency[int(tree_)-65].return_time(p->vertex_);
                         arr_shortest_path_table[int(p->vertex_)-65].from_ = tree_;
                     }
                 }
-                else{
+                else{   // else that the vertex is U
                     arr_shortest_path_table[int(p->vertex_)-65].state_ = 'F';
                     arr_shortest_path_table[int(p->vertex_)-65].from_ = tree_;
                     arr_shortest_path_table[int(p->vertex_)-65].time_ = arr_shortest_path_table[int(tree_)-65].time_+arr_adjacency[int(tree_)-65].return_time(p->vertex_);
@@ -106,7 +105,8 @@ void Area::create_shortest_path_table(char from, char to){
             }
             p = p->next_;
         }
-    }
+    }   
+    // checking table for F's
     char smallest = ' ';
     for(int i = 0; i < num_verticies_; i++){
         if(arr_shortest_path_table[i].state_ == 'F' && smallest == ' '){smallest = char(i+65);}

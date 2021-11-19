@@ -18,8 +18,7 @@ int main(){
             catch(Area::BadVertex){std::cerr<<"no such vertex exists"<<std::endl;}
         }
     }
-    a.create_shortest_path_table('B','F');
+    a.create_shortest_path_table('A','F');
     a.display_shortest_path_table();
-    a.display_table();
-    std::cout<<"check";
+    //a.display_table();
 }
