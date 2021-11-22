@@ -20,7 +20,10 @@ struct AdjacentList{
     int outDegree_;
     AdjacentNode* headLL_;
     AdjacentList():vertex_(' '),outDegree_(-1),headLL_(nullptr){}
+    ~AdjacentList();
+
     void add_front(char,int);
+    void delete_front();
     void display_list();
     int return_time(char);
     class EmptyList{};
@@ -38,6 +41,7 @@ public:
         arr_adjacency = new AdjacentList[num_verticies_];
         arr_shortest_path_table = new ShortestPathTable[num_verticies_];
     }
+    ~Area();
     class BadVertex{};
     //~Area();
     // Purpose: reads table from given text file and input values into the adjacency list
@@ -56,6 +60,8 @@ public:
     void display_shortest_path_table();
     // displays the certain path from tree_ to char along with the amount of time it will take
     void display_path(char);
+    // clears shortest path table and inserts defualt values
+    void clear_sp_table();
 };
 
 #endif

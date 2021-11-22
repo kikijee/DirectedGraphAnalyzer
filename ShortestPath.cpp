@@ -145,7 +145,8 @@ void Area::display_shortest_path_table(){
 
 void Area::display_path(char to){
     if(int(to)-65 >= num_verticies_ || int(to)-65 < 0){throw BadVertex();}
-    std::cout<<to;
+    std::cout<<"Amount of time: "<<arr_shortest_path_table[int(to)-65].time_<<std::endl;
+    std::cout<<"Path: "<<to;
     if(to == tree_){std::cout<<"\t:0"<<std::endl;return;}
     else if(arr_shortest_path_table[int(to)-65].time_ == 0){std::cout<<"...No path found..."<<std::endl;return;}
     else{
@@ -155,4 +156,32 @@ void Area::display_path(char to){
         }
         std::cout<<std::endl;
     }
+}
+
+void Area::clear_sp_table(){
+    for(int i = 0; i < num_verticies_; i++){
+        arr_shortest_path_table[i].from_ = '/';
+        arr_shortest_path_table[i].state_ = 'U';
+        arr_shortest_path_table[i].time_ = 0; 
+    }
+}
+
+Area::~Area(){
+    std::cout<<"...Area Destructor Called..."<<std::endl;
+    delete [] arr_shortest_path_table;
+    delete [] arr_adjacency;
+}
+
+AdjacentList::~AdjacentList(){
+    std::cout<<"...Adjacent List Destructor Called..."<<std::endl;
+    while(headLL_ != nullptr){
+        this->delete_front();
+    }
+}
+
+void AdjacentList::delete_front(){
+    if(headLL_ == nullptr){return;}
+    AdjacentNode* p = headLL_;
+    headLL_ = headLL_->next_;
+    delete p;
 }

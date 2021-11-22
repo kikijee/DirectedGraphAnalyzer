@@ -42,6 +42,7 @@ int main(){
                catch(Area::BadVertex){std::cerr<<"no such vertex exists"<<std::endl;}
            }
        }
+       a.clear_sp_table();
    }
     /*
     a.create_shortest_path_table('C');
