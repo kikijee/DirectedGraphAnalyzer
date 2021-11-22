@@ -84,9 +84,10 @@ void Area::display_linked_list(AdjacentNode* p){
     }
 }
 
-void Area::create_shortest_path_table(char from, char to){
-    if(tree_ == ' '){arr_shortest_path_table[int(from)-65].state_ = 'T';tree_ = from;}   // first call of function to automatically mark from as tree
-    
+void Area::create_shortest_path_table(char from){
+    //if(tree_ == ' '){arr_shortest_path_table[int(from)-65].state_ = 'T';tree_ = from;}   // first call of function to automatically mark from as tree
+    if(int(from)-65 >= num_verticies_ || int(from)-65 < 0){throw BadVertex();}
+    arr_shortest_path_table[int(from)-65].state_ = 'T';
     AdjacentNode* p = arr_adjacency[int(from)-65].headLL_; // points to head of adjacencys of current tree value
     if(p != nullptr){   // if tree value has no adjacencys then skip to checking the table part
         while(p != nullptr){    // if so then goes through the linked list marking all U as F and checking if there is a shorter time for values already marked F
@@ -106,6 +107,7 @@ void Area::create_shortest_path_table(char from, char to){
             p = p->next_;
         }
     }   
+    else{arr_shortest_path_table[int(p->vertex_)-65].from_ = ' ';}
     // checking table for F's
     char smallest = ' ';
     for(int i = 0; i < num_verticies_; i++){
@@ -115,8 +117,8 @@ void Area::create_shortest_path_table(char from, char to){
         }
     }
     if(smallest != ' '){
-        arr_shortest_path_table[int(smallest)-65].state_ = 'T';
-        create_shortest_path_table(smallest, to);
+        //arr_shortest_path_table[int(smallest)-65].state_ = 'T';
+        create_shortest_path_table(smallest);
     }
     return;
 }
@@ -147,10 +149,10 @@ void Area::display_path(char to){
     if(to == tree_){std::cout<<"\t:0"<<std::endl;return;}
     else if(arr_shortest_path_table[int(to)-65].time_ == 0){std::cout<<"...No path found..."<<std::endl;return;}
     else{
-        while(arr_shortest_path_table[int(to)-65].from_ != tree_){
+        while(arr_shortest_path_table[int(to)-65].from_ != '/'){
             std::cout<<"<-"<<arr_shortest_path_table[int(to)-65].from_;
             to = arr_shortest_path_table[int(to)-65].from_;
         }
-        std::cout<<"<-"<<tree_;
+        std::cout<<std::endl;
     }
 }

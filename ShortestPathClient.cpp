@@ -6,6 +6,7 @@ int main(){
     a.read_table();
     a.display_table();
     char value;
+    /*
     while(true){
         std::cout<<"Please enter Vertex name to search up data or type '/' to exit: "<<std::endl;
         std::cin>>value;
@@ -18,8 +19,34 @@ int main(){
             catch(Area::BadVertex){std::cerr<<"no such vertex exists"<<std::endl;}
         }
     }
-    a.create_shortest_path_table('C','E');
+    */
+   while(true){
+       std::cout<<"please enter vertex value to create shortest path table or type '/' to exit:"<<std::endl;
+       std::cin>>value;
+       if(value == '/'){break;}
+       else{
+           try{
+               a.create_shortest_path_table(value);
+               a.display_shortest_path_table();
+           }
+           catch(Area::BadVertex){std::cerr<<"no such vertex exists"<<std::endl;}
+       }
+       while(true){
+           std::cout<<"please enter the short path you would like to search or type '/' to exit:"<<std::endl;
+           std::cin>>value;
+           if(value == '/'){break;}
+           else{
+               try{
+                a.display_path(value);
+               }
+               catch(Area::BadVertex){std::cerr<<"no such vertex exists"<<std::endl;}
+           }
+       }
+   }
+    /*
+    a.create_shortest_path_table('C');
     a.display_shortest_path_table();
     a.display_path('E');
     //a.display_table();
+    */
 }

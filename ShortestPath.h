@@ -5,7 +5,7 @@ struct ShortestPathTable{
     int time_;
     char from_;
     char state_;
-    ShortestPathTable():time_(0),from_(' '),state_('U'){}
+    ShortestPathTable():time_(0),from_('/'),state_('U'){}
 };
 // nodes of linked list of the adjacency list
 struct AdjacentNode{
@@ -51,7 +51,7 @@ public:
     // uses return from above and displays linked list
     void display_linked_list(AdjacentNode*);
     // creates the shortest path table using dijkstra's algorithm
-    void create_shortest_path_table(char,char);
+    void create_shortest_path_table(char);
     // displays the shortest path table
     void display_shortest_path_table();
     // displays the certain path from tree_ to char along with the amount of time it will take
