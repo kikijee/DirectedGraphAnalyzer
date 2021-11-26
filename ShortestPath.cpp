@@ -34,11 +34,13 @@ void AdjacentList::add_front(char t_vertex, int t_out){
     }
 }
 
-void Area::read_table(){
+void Area::read_table(std::fstream &fin){
+    /*
     std::string fname;
     std::cout<<"please enter a file name: ";
     std::cin>> fname;
     std::fstream fin (fname.c_str(),std::ios::in);
+    */
     char x;
     int y;
     while(fin >> arr_adjacency[count_used_].vertex_){
@@ -56,7 +58,6 @@ void Area::display_table(){
     for(int i = 0; i < num_verticies_; i++){
         std::cout<<"Vertex: "<<arr_adjacency[i].vertex_<<" Out-Degree: "<<arr_adjacency[i].outDegree_<<'\t';
         arr_adjacency[i].display_list();
-        std::cout<<std::endl;
     }
 }
 
