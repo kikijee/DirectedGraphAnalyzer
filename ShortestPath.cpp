@@ -86,7 +86,6 @@ void Area::display_linked_list(AdjacentNode* p){
 }
 
 void Area::create_shortest_path_table(char from){
-    //if(tree_ == ' '){arr_shortest_path_table[int(from)-65].state_ = 'T';tree_ = from;}   // first call of function to automatically mark from as tree
     if(int(from)-65 >= num_verticies_ || int(from)-65 < 0){throw BadVertex();}
     arr_shortest_path_table[int(from)-65].state_ = 'T';
     AdjacentNode* p = arr_adjacency[int(from)-65].headLL_; // points to head of adjacencys of current tree value
@@ -108,7 +107,7 @@ void Area::create_shortest_path_table(char from){
             p = p->next_;
         }
     }   
-    else{arr_shortest_path_table[int(p->vertex_)-65].from_ = ' ';}
+    //else{arr_shortest_path_table[int(p->vertex_)-65].from_ = ' ';}
     // checking table for F's
     char smallest = ' ';
     for(int i = 0; i < num_verticies_; i++){
