@@ -7,7 +7,7 @@ void AdjacentList::display_list(){
     AdjacentNode* p;
     p = headLL_;
     if(headLL_ == nullptr){
-        std::cout<<"[ EMPTY ]"<<std::endl;
+        std::cout<<"[ EMPTY ]";
     }
     else{
         std::cout<<"[ ";
@@ -16,7 +16,7 @@ void AdjacentList::display_list(){
             std::cout<<"("<<p->time_<<") ";
             p = p->next_;
         }
-        std::cout<<" ]"<<std::endl;
+        std::cout<<" ]";
     }
 }
 
@@ -35,12 +35,6 @@ void AdjacentList::add_front(char t_vertex, int t_out){
 }
 
 void Area::read_table(std::fstream &fin){
-    /*
-    std::string fname;
-    std::cout<<"please enter a file name: ";
-    std::cin>> fname;
-    std::fstream fin (fname.c_str(),std::ios::in);
-    */
     char x;
     int y;
     while(fin >> arr_adjacency[count_used_].vertex_){
@@ -56,8 +50,9 @@ void Area::read_table(std::fstream &fin){
 
 void Area::display_table(){
     for(int i = 0; i < num_verticies_; i++){
-        std::cout<<"Vertex: "<<arr_adjacency[i].vertex_<<" Out-Degree: "<<arr_adjacency[i].outDegree_<<'\t';
+        std::cout<<"Vertex: "<<arr_adjacency[i].vertex_<<"\tOut-Degree: "<<arr_adjacency[i].outDegree_<<"\tVisit number: "<<arr_adjacency[i].visit_<<"\t\t";
         arr_adjacency[i].display_list();
+        std::cout<<std::endl;
     }
 }
 
@@ -170,6 +165,7 @@ Area::~Area(){
     std::cout<<"...Area Destructor Called..."<<std::endl;
     delete [] arr_shortest_path_table;
     delete [] arr_adjacency;
+    delete [] stack;
 }
 
 AdjacentList::~AdjacentList(){
@@ -184,4 +180,52 @@ void AdjacentList::delete_front(){
     AdjacentNode* p = headLL_;
     headLL_ = headLL_->next_;
     delete p;
+}
+
+char Area::pop(){
+    if(this->stack_is_empty()){throw StackUnderflow();}
+    else{top_--;return stack[top_+1];}
+}
+
+void Area::push(char elem){
+    if(int(elem)-65 >= num_verticies_ || int(elem)-65 < 0){throw BadVertex();}
+    if(this->stack_is_full()){throw StackOverflow();}
+    else{top_++;stack[top_] = elem;}
+}
+
+void Area::display_stack(){
+    if(this->stack_is_empty()){
+        std::cout<<"|\tEMPTY\t|"<<std::endl;
+    }
+    else{
+        for(int i = top_; i < 0; i--){
+            std::cout<<"|\t"<<stack[i]<<"\t|"<<std::endl;
+        }
+    }
+    std::cout<<"----------"<<std::endl;
+}
+
+bool Area::stack_is_empty(){
+    if(top_ == -1){return true;}
+    else{return false;}
+}
+
+bool Area::stack_is_full(){
+    if(top_ == num_verticies_-1){return true;}
+    else{return false;}
+}
+
+void Area::clear_stack(){top_ = -1;}
+
+void Area::visit(int num, char vertex){
+    if(int(vertex)-65 >= num_verticies_ || int(vertex)-65 < 0){throw BadVertex();}
+    if(!is_marked(vertex)){
+        arr_adjacency[int(vertex)-65].visit_ = num;
+    }
+    else{return;}
+}
+
+bool Area::is_marked(char vertex){
+    if(arr_adjacency[int(vertex)-65].visit_ == 0){return false;}
+    else{return true;}
 }

@@ -13,7 +13,7 @@ int main(){
     while(true){
         std::cout<<"...WELCOME TO THE DIRECTED GRAPH ANALYZER..."<<std::endl;
         std::cout<<"Please select from the options below"<<std::endl;
-        std::cout<<"1.) change input file\n2.) analysis of any given vertex through the adjacency list\n3.) visual of dijkstra algorithm through tables\n4.) exit analyzer"<<std::endl;
+        std::cout<<"1.) change input file\n2.) analysis of any given vertex through the adjacency list\n3.) visual of dijkstra algorithm through tables\n4.) visualization of DFS\n5.) exit analyzer"<<std::endl;
         std::cout<<"Current File: "<<fname<<std::endl;
         std::cout<<"=> ";
         std::cin >> case_num;
@@ -57,7 +57,7 @@ int main(){
                             std::cout<<"Vertex: "<<choice<<" Out-Degree: "<<a_ptr->find_out_degree(choice)<<" Adjacent: ";
                             a_ptr->display_linked_list(a_ptr->find_adjacent(choice));
                         }
-                        catch(Area::BadVertex){std::cerr<<"no such vertex exists"<<std::endl;}
+                        catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
                     }
                 }
                 break;
@@ -77,21 +77,43 @@ int main(){
                                 if(choice == '/'){break;}
                                 else{
                                     try{a_ptr->display_path(choice);}
-                                    catch(Area::BadVertex){std::cerr<<"no such vertex exists"<<std::endl;}
+                                    catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
                                 }
                             }
                         }
-                        catch(Area::BadVertex){std::cerr<<"no such vertex exists"<<std::endl;}
+                        catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
                     }
                     a_ptr->clear_sp_table();
                 }
                 break;
             case 4:
+                if(a_ptr == nullptr){std::cout<<"...Please select file to read from first..."<<std::endl;break;}
+                a_ptr->display_table();
+                while(true){
+                    int visit_num = 0;
+                    std::cout<<"Please enter element to act as root or type '/' to exit:"<<std::endl;
+                    std::cin>>choice;
+                    if(choice == '/'){break;}
+                    else{
+                        try{
+                            a_ptr->push(choice);
+                            while(!a_ptr->stack_is_empty()){
+                                try{
+
+                                }
+                                catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
+                            }
+                        }
+                        catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
+                    }
+                }
+                break;
+            case 5:
                 break;
             default:
                 std::cout<<"Error: Invalid choice please try again..."<<std::endl;
                 break;
         }
-        if(case_num == 4){break;}
+        if(case_num == 5){break;}
     }
 }
