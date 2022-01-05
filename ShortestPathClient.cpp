@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
 #include "ShortestPath.h"
 
 int main(){
@@ -43,6 +44,7 @@ int main(){
                         std::cout<<"Error: file does not exist... please try again"<<std::endl;
                     }
                 }
+                system("CLS");
                 break;
             case 2:
                 if(a_ptr == nullptr){std::cout<<"...Please select file to read from first..."<<std::endl;break;}
@@ -60,6 +62,7 @@ int main(){
                         catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
                     }
                 }
+                system("CLS");
                 break;
             case 3:
                 if(a_ptr == nullptr){std::cout<<"...Please select file to read from first..."<<std::endl;break;}
@@ -85,6 +88,7 @@ int main(){
                     }
                     a_ptr->clear_sp_table();
                 }
+                system("CLS");
                 break;
             case 4:
                 if(a_ptr == nullptr){std::cout<<"...Please select file to read from first..."<<std::endl;break;}
@@ -121,13 +125,17 @@ int main(){
                                 }
                                 catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
                             }
+                            a_ptr->display_table();
+                            a_ptr->clear_visit_numbers();
                         }
                         catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
                     }
                 }
                 a_ptr->clear_visit_numbers();
+                system("CLS");
                 break;
             case 5:
+                system("CLS");
                 break;
             default:
                 std::cout<<"Error: Invalid choice please try again..."<<std::endl;
