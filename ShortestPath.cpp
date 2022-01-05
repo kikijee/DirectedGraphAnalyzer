@@ -161,6 +161,7 @@ void Area::clear_sp_table(){
     }
 }
 
+// START DESTRUCTOR FUNCTIONS //
 Area::~Area(){
     std::cout<<"...Area Destructor Called..."<<std::endl;
     delete [] arr_shortest_path_table;
@@ -174,6 +175,7 @@ AdjacentList::~AdjacentList(){
         this->delete_front();
     }
 }
+// END DESTRUCTOR FUNCTIONS //
 
 void AdjacentList::delete_front(){
     if(headLL_ == nullptr){return;}
@@ -182,9 +184,10 @@ void AdjacentList::delete_front(){
     delete p;
 }
 
-char Area::pop(){
+// START STACK FUNCTIONS //
+void Area::pop(char &elem){
     if(this->stack_is_empty()){throw StackUnderflow();}
-    else{top_--;return stack[top_+1];}
+    else{top_--;elem = stack[top_+1];}
 }
 
 void Area::push(char elem){
@@ -198,7 +201,7 @@ void Area::display_stack(){
         std::cout<<"|\tEMPTY\t|"<<std::endl;
     }
     else{
-        for(int i = top_; i < 0; i--){
+        for(int i = top_; i >= 0; i--){
             std::cout<<"|\t"<<stack[i]<<"\t|"<<std::endl;
         }
     }
@@ -216,7 +219,9 @@ bool Area::stack_is_full(){
 }
 
 void Area::clear_stack(){top_ = -1;}
+// END STACK FUNCTIONS //
 
+// START DFS FUNCTIONS //
 void Area::visit(int num, char vertex){
     if(int(vertex)-65 >= num_verticies_ || int(vertex)-65 < 0){throw BadVertex();}
     if(!is_marked(vertex)){
@@ -229,3 +234,10 @@ bool Area::is_marked(char vertex){
     if(arr_adjacency[int(vertex)-65].visit_ == 0){return false;}
     else{return true;}
 }
+
+void Area::clear_visit_numbers(){
+    for(int i = 0; i < num_verticies_; i++){
+        arr_adjacency[i].visit_ = 0;
+    }
+}
+// END DFS FUNCTIONS // 

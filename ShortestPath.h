@@ -80,7 +80,7 @@ public:
 
     //STACK FUNCTIONS//
     // pops top element in stack and then returns it
-    char pop();
+    void pop(char &);
     // pushes element to stack
     void push(char);
     // displays all stack elements vertically
@@ -98,6 +98,8 @@ public:
     void visit(int,char);
     // if not marked yet then return false otherwise return true
     bool is_marked(char);
+    // resets all visit numbers in the adjacency list
+    void clear_visit_numbers();
     // END DFS FUNCTIONS //
 };
 

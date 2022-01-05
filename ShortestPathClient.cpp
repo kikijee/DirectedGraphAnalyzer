@@ -89,17 +89,35 @@ int main(){
             case 4:
                 if(a_ptr == nullptr){std::cout<<"...Please select file to read from first..."<<std::endl;break;}
                 a_ptr->display_table();
+                AdjacentNode *n_ptr;
                 while(true){
-                    int visit_num = 0;
+                    int visit_num = 1;
                     std::cout<<"Please enter element to act as root or type '/' to exit:"<<std::endl;
                     std::cin>>choice;
                     if(choice == '/'){break;}
                     else{
                         try{
-                            a_ptr->push(choice);
+                            a_ptr->push(choice);    // choosing element to act as the root 
                             while(!a_ptr->stack_is_empty()){
                                 try{
-
+                                    a_ptr->pop(choice);
+                                    std::cout<<"removed "<<choice<<" from stack"<<std::endl;
+                                    if(!a_ptr->is_marked(choice)){
+                                        a_ptr->visit(visit_num,choice);
+                                        std::cout<<"Visit "<<choice<<" as "<<visit_num<<std::endl;
+                                        visit_num++;
+                                        if(a_ptr->find_out_degree(choice) == 0){std::cout<<"Deadend reached - backup."<<std::endl;}
+                                        else{
+                                            n_ptr = a_ptr->find_adjacent(choice);
+                                            while(n_ptr != nullptr){
+                                                a_ptr->push(n_ptr->vertex_);
+                                                n_ptr = n_ptr->next_;
+                                            }
+                                        }
+                                    }    
+                                    else{std::cout<<choice<<" has been visited already - backup."<<std::endl;}
+                                    std::cout<<"stack is:"<<std::endl;
+                                    a_ptr->display_stack();
                                 }
                                 catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
                             }
@@ -107,6 +125,7 @@ int main(){
                         catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
                     }
                 }
+                a_ptr->clear_visit_numbers();
                 break;
             case 5:
                 break;
