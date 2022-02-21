@@ -39,7 +39,7 @@ struct AdjacentList{
 class Area{
 private:
     int num_verticies_;
-    int count_used_;
+    //int count_used_;
     AdjacentList* arr_adjacency;                // pointer to AdjacenList to point to array holding AdjacentList objects
     char tree_;
     ShortestPathTable* arr_shortest_path_table; // pointer to ShortestPathTable to point to array holding SPT objects
@@ -48,7 +48,7 @@ private:
 public:
 // constructor takes one parameter being the total number of vertices which initializes num_vertices which then 
 // allocates that certain amount of space in the heap for arr_adjacency and arr_shortest_path_table
-    Area(int num):num_verticies_(num),count_used_(0),tree_(' '),top_(-1){
+    Area(int num):num_verticies_(num),/*count_used_(0),*/tree_(' '),top_(-1){
         arr_adjacency = new AdjacentList[num_verticies_];
         arr_shortest_path_table = new ShortestPathTable[num_verticies_];
         stack = new char[num_verticies_];

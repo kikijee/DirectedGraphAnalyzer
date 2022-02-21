@@ -37,14 +37,15 @@ void AdjacentList::add_front(char t_vertex, int t_out){
 void Area::read_table(std::fstream &fin){
     char x;
     int y;
-    while(fin >> arr_adjacency[count_used_].vertex_){
-        fin >> arr_adjacency[count_used_].outDegree_;
-        for(int i = 0; i < arr_adjacency[count_used_].outDegree_; i++){
+    int count = 0;
+    while(fin >> arr_adjacency[count].vertex_){
+        fin >> arr_adjacency[count].outDegree_;
+        for(int i = 0; i < arr_adjacency[count].outDegree_; i++){
             fin>>x;
             fin>>y;
-            arr_adjacency[count_used_].add_front(x,y);
+            arr_adjacency[count].add_front(x,y);
         }
-        count_used_++;
+        count++;
     }
 }
 
