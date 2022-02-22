@@ -1,0 +1,287 @@
+...WELCOME TO THE DIRECTED GRAPH ANALYZER...
+Please select from the options below
+1.) change input file
+2.) analysis of any given vertex through the adjacency list
+3.) visual of dijkstra algorithm through tables
+4.) visualization of DFS
+5.) exit analyzer
+Current File: No file selected
+=> 1
+Please enter the file name that you would like to process, other wise type '/' to exit
+=> table2.txt
+You have selected: "table2.txt" is this correct? (y/n)
+=> y
+
+...WELCOME TO THE DIRECTED GRAPH ANALYZER...
+Please select from the options below
+1.) change input file
+2.) analysis of any given vertex through the adjacency list
+3.) visual of dijkstra algorithm through tables
+4.) visualization of DFS
+5.) exit analyzer
+Current File: table2.txt
+=>
+
+//...ANALYSIS OF ANY GIVEN VERTEX...//
+
+...WELCOME TO THE DIRECTED GRAPH ANALYZER...
+Please select from the options below
+1.) change input file
+2.) analysis of any given vertex through the adjacency list
+3.) visual of dijkstra algorithm through tables
+4.) visualization of DFS
+5.) exit analyzer
+Current File: table2.txt
+=> 2
+ADJACENCY TABLE:
+Vertex: A       Out-Degree: 4   Visit number: 0         [ H(5) G(5) E(2) A(5)  ]
+Vertex: B       Out-Degree: 2   Visit number: 0         [ D(5) A(5)  ]
+Vertex: C       Out-Degree: 1   Visit number: 0         [ E(5)  ]
+Vertex: D       Out-Degree: 1   Visit number: 0         [ F(5)  ]
+Vertex: E       Out-Degree: 3   Visit number: 0         [ B(2) F(5) D(5)  ]     
+Vertex: F       Out-Degree: 0   Visit number: 0         [ EMPTY ]
+Vertex: G       Out-Degree: 1   Visit number: 0         [ C(5)  ]
+Vertex: H       Out-Degree: 2   Visit number: 0         [ F(5) A(5)  ]
+Please enter Vertex name to search up data or type '/' to exit:
+A
+Vertex: A Out-Degree: 4 Adjacent: [ H (5) G (5) E (2) A (5) ]   
+Please enter Vertex name to search up data or type '/' to exit: 
+B
+Vertex: B Out-Degree: 2 Adjacent: [ D (5) A (5) ]
+Please enter Vertex name to search up data or type '/' to exit: 
+C
+Vertex: C Out-Degree: 1 Adjacent: [ E (5) ]
+Please enter Vertex name to search up data or type '/' to exit: 
+R
+Vertex: R Out-Degree: Error: no such vertex exists
+Please enter Vertex name to search up data or type '/' to exit: 
+H
+Vertex: H Out-Degree: 2 Adjacent: [ F (5) A (5) ]
+Please enter Vertex name to search up data or type '/' to exit: 
+
+//...SHORTEST PATH DEMO...//
+
+...WELCOME TO THE DIRECTED GRAPH ANALYZER...
+Please select from the options below
+1.) change input file
+2.) analysis of any given vertex through the adjacency list
+3.) visual of dijkstra algorithm through tables
+4.) visualization of DFS
+5.) exit analyzer
+Current File: table2.txt
+=> 3
+please enter vertex value to create shortest path table or type '/' to exit:
+A
+--------------------------
+T A 0 from: /
+T B 4 from: E
+T C 10 from: G
+T D 7 from: E
+T E 2 from: A
+T F 7 from: E
+T G 5 from: A
+T H 5 from: A
+--------------------------
+please enter the short path you would like to search or type '/' to exit:
+B
+Amount of time: 4
+Path: B<-E<-A
+please enter the short path you would like to search or type '/' to exit:
+C
+Amount of time: 10
+Path: C<-G<-A
+please enter the short path you would like to search or type '/' to exit:
+D
+Amount of time: 7
+Path: D<-E<-A
+please enter the short path you would like to search or type '/' to exit:
+E
+Amount of time: 2
+Path: E<-A
+please enter the short path you would like to search or type '/' to exit:
+F
+Amount of time: 7
+Path: F<-E<-A
+please enter the short path you would like to search or type '/' to exit:
+G
+Amount of time: 5
+Path: G<-A
+please enter the short path you would like to search or type '/' to exit:
+T
+Error: no such vertex exists
+please enter the short path you would like to search or type '/' to exit:
+
+
+// DEPTH-FIRST SEARCH 
+
+...WELCOME TO THE DIRECTED GRAPH ANALYZER...
+Please select from the options below
+1.) change input file
+2.) analysis of any given vertex through the adjacency list
+3.) visual of dijkstra algorithm through tables
+4.) visualization of DFS
+5.) exit analyzer
+Current File: table2.txt
+=> 4
+Vertex: A       Out-Degree: 4   Visit number: 0         [ H(5) G(5) E(2) A(5)  ]
+Vertex: B       Out-Degree: 2   Visit number: 0         [ D(5) A(5)  ]
+Vertex: C       Out-Degree: 1   Visit number: 0         [ E(5)  ]
+Vertex: D       Out-Degree: 1   Visit number: 0         [ F(5)  ]
+Vertex: E       Out-Degree: 3   Visit number: 0         [ B(2) F(5) D(5)  ]     
+Vertex: F       Out-Degree: 0   Visit number: 0         [ EMPTY ]
+Vertex: G       Out-Degree: 1   Visit number: 0         [ C(5)  ]
+Vertex: H       Out-Degree: 2   Visit number: 0         [ F(5) A(5)  ]
+Please enter element to act as root or type '/' to exit:
+A
+removed A from stack
+Visit A as 1
+stack is:
+|       A       |
+|       E       |
+|       G       |
+|       H       |
+----------
+removed A from stack
+A has been visited already - backup.
+stack is:
+|       E       |
+|       G       |
+|       H       |
+----------
+removed E from stack
+Visit E as 2
+stack is:
+|       D       |
+|       F       |
+|       B       |
+|       G       |
+|       H       |
+----------
+removed D from stack
+Visit D as 3
+stack is:
+|       F       |
+|       F       |
+|       B       |
+|       G       |
+|       H       |
+----------
+removed F from stack
+Visit F as 4
+Deadend reached - backup.
+stack is:
+|       F       |
+|       B       |
+|       G       |
+|       H       |
+----------
+removed F from stack
+F has been visited already - backup.
+stack is:
+|       B       |
+|       G       |
+|       H       |
+----------
+removed B from stack
+Visit B as 5
+stack is:
+|       A       |
+|       D       |
+|       G       |
+|       H       |
+----------
+removed A from stack
+A has been visited already - backup.
+stack is:
+|       D       |
+|       G       |
+|       H       |
+----------
+removed D from stack
+D has been visited already - backup.
+stack is:
+|       G       |
+|       H       |
+----------
+removed G from stack
+Visit G as 6
+stack is:
+|       C       |
+|       H       |
+----------
+removed C from stack
+Visit C as 7
+stack is:
+|       E       |
+|       H       |
+----------
+removed E from stack
+E has been visited already - backup.
+stack is:
+|       H       |
+----------
+removed H from stack
+Visit H as 8
+stack is:
+|       A       |
+|       F       |
+----------
+removed A from stack
+A has been visited already - backup.
+stack is:
+|       F       |
+----------
+removed F from stack
+F has been visited already - backup.
+stack is:
+|       EMPTY   |
+----------
+Vertex: A       Out-Degree: 4   Visit number: 1         [ H(5) G(5) E(2) A(5)  ]
+Vertex: B       Out-Degree: 2   Visit number: 5         [ D(5) A(5)  ]
+Vertex: C       Out-Degree: 1   Visit number: 7         [ E(5)  ]
+Vertex: D       Out-Degree: 1   Visit number: 3         [ F(5)  ]
+Vertex: E       Out-Degree: 3   Visit number: 2         [ B(2) F(5) D(5)  ]
+Vertex: F       Out-Degree: 0   Visit number: 4         [ EMPTY ]
+Vertex: G       Out-Degree: 1   Visit number: 6         [ C(5)  ]
+Vertex: H       Out-Degree: 2   Visit number: 8         [ F(5) A(5)  ]
+Please enter element to act as root or type '/' to exit:
+
+...WELCOME TO THE DIRECTED GRAPH ANALYZER...
+Please select from the options below
+1.) change input file
+2.) analysis of any given vertex through the adjacency list
+3.) visual of dijkstra algorithm through tables
+4.) visualization of DFS
+5.) exit analyzer
+Current File: table2.txt
+=> 4
+Vertex: A       Out-Degree: 4   Visit number: 0         [ H(5) G(5) E(2) A(5)  ]
+Vertex: B       Out-Degree: 2   Visit number: 0         [ D(5) A(5)  ]
+Vertex: C       Out-Degree: 1   Visit number: 0         [ E(5)  ]
+Vertex: D       Out-Degree: 1   Visit number: 0         [ F(5)  ]
+Vertex: E       Out-Degree: 3   Visit number: 0         [ B(2) F(5) D(5)  ]     
+Vertex: F       Out-Degree: 0   Visit number: 0         [ EMPTY ]
+Vertex: G       Out-Degree: 1   Visit number: 0         [ C(5)  ]
+Vertex: H       Out-Degree: 2   Visit number: 0         [ F(5) A(5)  ]
+Please enter element to act as root or type '/' to exit:
+D
+removed D from stack
+Visit D as 1
+stack is:
+|       F       |
+----------
+removed F from stack
+Visit F as 2
+Deadend reached - backup.
+stack is:
+|       EMPTY   |
+----------
+Vertex: A       Out-Degree: 4   Visit number: 0         [ H(5) G(5) E(2) A(5)  ]
+Vertex: B       Out-Degree: 2   Visit number: 0         [ D(5) A(5)  ]
+Vertex: C       Out-Degree: 1   Visit number: 0         [ E(5)  ]
+Vertex: D       Out-Degree: 1   Visit number: 1         [ F(5)  ]
+Vertex: E       Out-Degree: 3   Visit number: 0         [ B(2) F(5) D(5)  ]     
+Vertex: F       Out-Degree: 0   Visit number: 2         [ EMPTY ]
+Vertex: G       Out-Degree: 1   Visit number: 0         [ C(5)  ]
+Vertex: H       Out-Degree: 2   Visit number: 0         [ F(5) A(5)  ]
+Please enter element to act as root or type '/' to exit:
