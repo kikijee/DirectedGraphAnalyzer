@@ -1,1 +1,1 @@
-g++ ShortestPath.cpp ShortestPathClient.cpp -o DirectedGraphAnalyzer
+g++ DirectedGraph.cpp DirectedGraphAnalyzerClient.cpp AdjacentList.cpp -o DirectedGraphAnalyzerTest

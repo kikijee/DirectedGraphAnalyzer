@@ -1,49 +1,21 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "ShortestPath.h"
-
-void AdjacentList::display_list(){
-    AdjacentNode* p;
-    p = headLL_;
-    if(headLL_ == nullptr){
-        std::cout<<"[ EMPTY ]";
-    }
-    else{
-        std::cout<<"[ ";
-        while(p != nullptr){
-            std::cout<<p->vertex_;
-            std::cout<<"("<<p->time_<<") ";
-            p = p->next_;
-        }
-        std::cout<<" ]";
-    }
-}
-
-void AdjacentList::add_front(char t_vertex, int t_out){
-    AdjacentNode* p = new AdjacentNode;
-    p->vertex_ = t_vertex;
-    p->time_ = t_out;
-    p->next_ = nullptr;
-    if(headLL_ == nullptr){
-        headLL_ = p;
-    }
-    else{
-        p->next_ = headLL_;
-        headLL_ = p;
-    }
-}
+#include "DirectedGraph.h"
 
 void Area::read_table(std::fstream &fin){
-    char x;
-    int y;
+    char vertex;
+    int outDegree, time;
     int count = 0;
-    while(fin >> arr_adjacency[count].vertex_){
-        fin >> arr_adjacency[count].outDegree_;
-        for(int i = 0; i < arr_adjacency[count].outDegree_; i++){
-            fin>>x;
-            fin>>y;
-            arr_adjacency[count].add_front(x,y);
+    while(/*fin >> arr_adjacency[count].vertex_*/fin >> vertex){
+        arr_adjacency[count].set_vertex(vertex);
+        fin >> outDegree;
+        arr_adjacency[count].set_outDegree(outDegree);
+        //fin >> arr_adjacency[count].outDegree_;
+        for(int i = 0; i < arr_adjacency[count].return_outDegree(); i++){
+            fin>>vertex;
+            fin>>time;
+            arr_adjacency[count].add_front(vertex,time);
         }
         count++;
     }
@@ -51,7 +23,7 @@ void Area::read_table(std::fstream &fin){
 
 void Area::display_table(){
     for(int i = 0; i < num_verticies_; i++){
-        std::cout<<"Vertex: "<<arr_adjacency[i].vertex_<<"\tOut-Degree: "<<arr_adjacency[i].outDegree_<<"\tVisit number: "<<arr_adjacency[i].visit_<<"\t\t";
+        std::cout<<"Vertex: "<<arr_adjacency[i].return_vertex()<<"\tOut-Degree: "<<arr_adjacency[i].return_outDegree()<<"\tVisit number: "<<arr_adjacency[i].return_visit()<<"\t\t";
         arr_adjacency[i].display_list();
         std::cout<<std::endl;
     }
@@ -60,31 +32,19 @@ void Area::display_table(){
 int Area::find_out_degree(char temp){
     int index = int(temp)-65;
     if(index > num_verticies_-1 || 0 > index){throw BadVertex();}
-    else{return arr_adjacency[index].outDegree_;}
+    else{return arr_adjacency[index].return_outDegree();}
 }
 
-AdjacentNode* Area::find_adjacent(char temp){
+Node* Area::find_adjacent(char temp){
     int index = int(temp)-65;
     if(index > num_verticies_-1 || 0 > index){throw BadVertex();}
-    else{return arr_adjacency[index].headLL_;}
-}
-
-void Area::display_linked_list(AdjacentNode* p){
-    if(p == nullptr){std::cout<<"[ EMPTY ]"<<std::endl;}
-    else{
-        std::cout<<"[ ";
-        while(p != nullptr){
-            std::cout<<p->vertex_<<" ("<<p->time_<<") ";
-            p = p->next_;
-        }  
-        std::cout<<"]"<<std::endl;
-    }
+    else{return arr_adjacency[index].return_front();}
 }
 
 void Area::create_shortest_path_table(char from){
     if(int(from)-65 >= num_verticies_ || int(from)-65 < 0){throw BadVertex();}
     arr_shortest_path_table[int(from)-65].state_ = 'T';
-    AdjacentNode* p = arr_adjacency[int(from)-65].headLL_; // points to head of adjacencys of current tree value
+    Node* p = arr_adjacency[int(from)-65].return_front(); // points to head of adjacencys of current tree value
     if(p != nullptr){   // if tree value has no adjacencys then skip to checking the table part
         while(p != nullptr){    // if so then goes through the linked list marking all U as F and checking if there is a shorter time for values already marked F
             if(arr_shortest_path_table[int(p->vertex_)-65].state_ != 'T'){  // if marked T already dont do anything
@@ -117,18 +77,6 @@ void Area::create_shortest_path_table(char from){
         create_shortest_path_table(smallest);
     }
     return;
-}
-
-int AdjacentList::return_time(char value){
-    if(this->headLL_ == nullptr){throw EmptyList();}
-    else{
-        AdjacentNode* p = this->headLL_;
-        while(p != nullptr){
-            if(p->vertex_ == value){return p->time_;}
-            p = p->next_;
-        }
-        throw Area::BadVertex();
-    }
 }
 
 void Area::display_shortest_path_table(){
@@ -169,21 +117,7 @@ Area::~Area(){
     delete [] arr_adjacency;
     delete [] stack;
 }
-
-AdjacentList::~AdjacentList(){
-    std::cout<<"...Adjacent List Destructor Called..."<<std::endl;
-    while(headLL_ != nullptr){
-        this->delete_front();
-    }
-}
 // END DESTRUCTOR FUNCTIONS //
-
-void AdjacentList::delete_front(){
-    if(headLL_ == nullptr){return;}
-    AdjacentNode* p = headLL_;
-    headLL_ = headLL_->next_;
-    delete p;
-}
 
 // START STACK FUNCTIONS //
 void Area::pop(char &elem){
@@ -226,19 +160,21 @@ void Area::clear_stack(){top_ = -1;}
 void Area::visit(int num, char vertex){
     if(int(vertex)-65 >= num_verticies_ || int(vertex)-65 < 0){throw BadVertex();}
     if(!is_marked(vertex)){
-        arr_adjacency[int(vertex)-65].visit_ = num;
+        //arr_adjacency[int(vertex)-65].visit_ = num;
+        arr_adjacency[int(vertex)-65].set_visit(num);
     }
     else{return;}
 }
 
 bool Area::is_marked(char vertex){
-    if(arr_adjacency[int(vertex)-65].visit_ == 0){return false;}
+    if(arr_adjacency[int(vertex)-65].return_visit() == 0){return false;}
     else{return true;}
 }
 
 void Area::clear_visit_numbers(){
     for(int i = 0; i < num_verticies_; i++){
-        arr_adjacency[i].visit_ = 0;
+        //arr_adjacency[i].visit_ = 0;
+        arr_adjacency[i].set_visit(0);
     }
 }
 // END DFS FUNCTIONS // 

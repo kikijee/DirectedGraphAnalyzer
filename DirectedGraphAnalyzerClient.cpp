@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
-#include "ShortestPath.h"
+#include"AdjacentList.h"
+#include "DirectedGraph.h"
 // client purpose to provide main menu and give analysis options to user based on table selected to use as graph
 // current analysis options: Adjacency list analysis, dikstra's analysis, and depth first search
 int main(){
@@ -57,7 +58,7 @@ int main(){
                     else{
                         try{
                             std::cout<<"Vertex: "<<choice<<" Out-Degree: "<<a_ptr->find_out_degree(choice)<<" Adjacent: ";
-                            a_ptr->display_linked_list(a_ptr->find_adjacent(choice));
+                            display_linked_list(a_ptr->find_adjacent(choice));
                         }
                         catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
                     }
@@ -93,7 +94,7 @@ int main(){
             case 4:     // Depth First search
                 if(a_ptr == nullptr){std::cout<<"...Please select file to read from first..."<<std::endl;break;}
                 a_ptr->display_table();
-                AdjacentNode *n_ptr;
+                Node *n_ptr;
                 while(true){
                     int visit_num = 1;
                     std::cout<<"Please enter element to act as root or type '/' to exit:"<<std::endl;
