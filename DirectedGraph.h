@@ -16,25 +16,19 @@ struct ShortestPathTable{
 class Area{
 private:
     int num_verticies_;
-    AdjacentList* arr_adjacency;                // pointer to AdjacenList to point to array holding AdjacentList objects
     char tree_;
+    AdjacentList* arr_adjacency;                // pointer to AdjacenList to point to array holding AdjacentList objects
     ShortestPathTable* arr_shortest_path_table; // pointer to ShortestPathTable to point to array holding SPT objects
-    char* stack;
-    int top_;
 public:
 // constructor takes one parameter being the total number of vertices which initializes num_vertices which then 
 // allocates that certain amount of space in the heap for arr_adjacency and arr_shortest_path_table
-    Area(int num):num_verticies_(num),/*count_used_(0),*/tree_(' '),top_(-1){
+    Area(int num):num_verticies_(num),tree_(' '){
         arr_adjacency = new AdjacentList[num_verticies_];
         arr_shortest_path_table = new ShortestPathTable[num_verticies_];
-        stack = new char[num_verticies_];
     }
     ~Area();
     // Vertex fault exception
     class BadVertex{};
-    // stack exception handling cases
-    class StackUnderflow{};
-    class StackOverflow{};
     // Purpose: reads table from given text file and input values into the adjacency list
     void read_table(std::fstream&);
     // displays the adjacency list
@@ -51,21 +45,6 @@ public:
     void display_path(char);
     // clears shortest path table and inserts defualt values
     void clear_sp_table();
-
-    //STACK FUNCTIONS//
-    // pops top element in stack and then returns it
-    void pop(char &);
-    // pushes element to stack
-    void push(char);
-    // displays all stack elements vertically
-    void display_stack();
-    // returns true if stack is empty otherwise returns false
-    bool stack_is_empty();
-    // returns true if stack is full otherwise returns false
-    bool stack_is_full();
-    // clears stack
-    void clear_stack();
-    //END STACK FUNCTIONS//
 
     // DFS FUNCTIONS //
     // if given vertex has not been marked yet then mark it with num

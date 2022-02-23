@@ -7,11 +7,10 @@ void Area::read_table(std::fstream &fin){
     char vertex;
     int outDegree, time;
     int count = 0;
-    while(/*fin >> arr_adjacency[count].vertex_*/fin >> vertex){
+    while(fin >> vertex){
         arr_adjacency[count].set_vertex(vertex);
         fin >> outDegree;
         arr_adjacency[count].set_outDegree(outDegree);
-        //fin >> arr_adjacency[count].outDegree_;
         for(int i = 0; i < arr_adjacency[count].return_outDegree(); i++){
             fin>>vertex;
             fin>>time;
@@ -115,52 +114,13 @@ Area::~Area(){
     std::cout<<"...Area Destructor Called..."<<std::endl;
     delete [] arr_shortest_path_table;
     delete [] arr_adjacency;
-    delete [] stack;
 }
 // END DESTRUCTOR FUNCTIONS //
-
-// START STACK FUNCTIONS //
-void Area::pop(char &elem){
-    if(this->stack_is_empty()){throw StackUnderflow();}
-    else{top_--;elem = stack[top_+1];}
-}
-
-void Area::push(char elem){
-    if(int(elem)-65 >= num_verticies_ || int(elem)-65 < 0){throw BadVertex();}
-    if(this->stack_is_full()){throw StackOverflow();}
-    else{top_++;stack[top_] = elem;}
-}
-
-void Area::display_stack(){
-    if(this->stack_is_empty()){
-        std::cout<<"|\tEMPTY\t|"<<std::endl;
-    }
-    else{
-        for(int i = top_; i >= 0; i--){
-            std::cout<<"|\t"<<stack[i]<<"\t|"<<std::endl;
-        }
-    }
-    std::cout<<"----------"<<std::endl;
-}
-
-bool Area::stack_is_empty(){
-    if(top_ == -1){return true;}
-    else{return false;}
-}
-
-bool Area::stack_is_full(){
-    if(top_ == num_verticies_-1){return true;}
-    else{return false;}
-}
-
-void Area::clear_stack(){top_ = -1;}
-// END STACK FUNCTIONS //
 
 // START DFS FUNCTIONS //
 void Area::visit(int num, char vertex){
     if(int(vertex)-65 >= num_verticies_ || int(vertex)-65 < 0){throw BadVertex();}
     if(!is_marked(vertex)){
-        //arr_adjacency[int(vertex)-65].visit_ = num;
         arr_adjacency[int(vertex)-65].set_visit(num);
     }
     else{return;}
@@ -173,7 +133,6 @@ bool Area::is_marked(char vertex){
 
 void Area::clear_visit_numbers(){
     for(int i = 0; i < num_verticies_; i++){
-        //arr_adjacency[i].visit_ = 0;
         arr_adjacency[i].set_visit(0);
     }
 }

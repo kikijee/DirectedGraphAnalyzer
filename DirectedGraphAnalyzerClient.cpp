@@ -3,15 +3,17 @@
 #include <stdlib.h>
 #include"AdjacentList.h"
 #include "DirectedGraph.h"
+#include "Stack.h"
 // client purpose to provide main menu and give analysis options to user based on table selected to use as graph
 // current analysis options: Adjacency list analysis, dikstra's analysis, and depth first search
 int main(){
     std::string fname = "No file selected";
     std::string file;    
     char choice;
-    int num;
+    int vertex_num;
     int case_num;
     Area* a_ptr = nullptr;      // when program first runs there is no defualt file selected, user must first select file
+    Stack* stack_ptr = nullptr;
     while(true){
         std::cout<<"...WELCOME TO THE DIRECTED GRAPH ANALYZER..."<<std::endl;
         std::cout<<"Please select from the options below"<<std::endl;
@@ -33,8 +35,8 @@ int main(){
                         if(choice == 'y' || choice == 'Y'){
                             fname = file;
                             if(a_ptr != nullptr){delete a_ptr;} // if there was already a previous file selected, delete current area object and have the pointer point to a new one
-                            fin>>num;
-                            a_ptr = new Area(num);
+                            fin>>vertex_num;
+                            a_ptr = new Area(vertex_num);
                             a_ptr->read_table(fin);
                             std::cout<<"...file read was a success, returning to main menu..."<<std::endl;
                             break;
@@ -95,6 +97,7 @@ int main(){
                 if(a_ptr == nullptr){std::cout<<"...Please select file to read from first..."<<std::endl;break;}
                 a_ptr->display_table();
                 Node *n_ptr;
+                stack_ptr = new Stack(vertex_num);
                 while(true){
                     int visit_num = 1;
                     std::cout<<"Please enter element to act as root or type '/' to exit:"<<std::endl;
@@ -102,10 +105,10 @@ int main(){
                     if(choice == '/'){break;}
                     else{
                         try{
-                            a_ptr->push(choice);    // choosing element to act as the root 
-                            while(!a_ptr->stack_is_empty()){
+                            stack_ptr->push(choice);    // choosing element to act as the root 
+                            while(!stack_ptr->stack_is_empty()){
                                 try{
-                                    a_ptr->pop(choice);
+                                    stack_ptr->pop(choice);
                                     std::cout<<"removed "<<choice<<" from stack"<<std::endl;
                                     if(!a_ptr->is_marked(choice)){
                                         a_ptr->visit(visit_num,choice);
@@ -115,14 +118,14 @@ int main(){
                                         else{
                                             n_ptr = a_ptr->find_adjacent(choice);
                                             while(n_ptr != nullptr){
-                                                a_ptr->push(n_ptr->vertex_);
+                                                stack_ptr->push(n_ptr->vertex_);
                                                 n_ptr = n_ptr->next_;
                                             }
                                         }
                                     }    
                                     else{std::cout<<choice<<" has been visited already - backup."<<std::endl;}
                                     std::cout<<"stack is:"<<std::endl;
-                                    a_ptr->display_stack();
+                                    stack_ptr->display_stack();
                                 }
                                 catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
                             }
@@ -132,10 +135,12 @@ int main(){
                         catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
                     }
                 }
+                delete stack_ptr;
                 a_ptr->clear_visit_numbers();
                 system("CLS");
                 break;
             case 5:     // Exit option
+                if(a_ptr != nullptr){delete a_ptr;}
                 system("CLS");
                 break;
             default:
