@@ -1,1 +1,1 @@
-g++ DirectedGraph.cpp DirectedGraphAnalyzerClient.cpp AdjacentList.cpp Stack.cpp -o DirectedGraphAnalyzerTest
+g++ DirectedGraph.cpp DirectedGraphAnalyzerClient.cpp AdjacentList.cpp Stack.cpp LinkedList.cpp -o DirectedGraphAnalyzerTest

@@ -1,13 +1,5 @@
 #include "AdjacentList.h"
 
-AdjacentList::~AdjacentList(){
-    std::cout<<"...Adjacent List Destructor Called..."<<std::endl;
-    while(front_ != nullptr){
-        this->delete_front();
-        count_--;
-    }
-}
-
 void AdjacentList::display_list(){
     Node* p;
     p = front_;
@@ -64,10 +56,4 @@ int AdjacentList::return_time(char value){
     }
 }
 
-void AdjacentList::delete_front(){
-    if(front_ == nullptr){return;}
-    Node* p = front_;
-    front_ = front_->next_;
-    delete p;
-}
 
