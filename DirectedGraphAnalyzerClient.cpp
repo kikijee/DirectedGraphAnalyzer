@@ -15,6 +15,7 @@ int main(){
     int case_num;
     Area* a_ptr = nullptr;      // when program first runs there is no defualt file selected, user must first select file
     Stack* stack_ptr = nullptr;
+    LinkedList* linked_list_ptr = nullptr;
     while(true){
         std::cout<<"...WELCOME TO THE DIRECTED GRAPH ANALYZER..."<<std::endl;
         std::cout<<"Please select from the options below"<<std::endl;
@@ -99,6 +100,7 @@ int main(){
                 a_ptr->display_table();
                 Node *n_ptr;
                 stack_ptr = new Stack(vertex_num);
+                //linked_list_ptr = new LinkedList;
                 while(true){
                     int visit_num = 1;
                     std::cout<<"Please enter element to act as root or type '/' to exit:"<<std::endl;
@@ -106,12 +108,14 @@ int main(){
                     if(choice == '/'){break;}
                     else{
                         try{
+                            linked_list_ptr = new LinkedList;
                             stack_ptr->push(choice);    // choosing element to act as the root 
                             while(!stack_ptr->stack_is_empty()){
                                 try{
                                     stack_ptr->pop(choice);
                                     std::cout<<"removed "<<choice<<" from stack"<<std::endl;
                                     if(!a_ptr->is_marked(choice)){
+                                        linked_list_ptr->add_rear(choice);
                                         a_ptr->visit(visit_num,choice);
                                         std::cout<<"Visit "<<choice<<" as "<<visit_num<<std::endl;
                                         visit_num++;
@@ -132,9 +136,17 @@ int main(){
                             }
                             a_ptr->display_table();
                             a_ptr->clear_visit_numbers();
+                            std::cout<<std::endl<<"Elements in ascending visit number order:"<<std::endl;
+                            linked_list_ptr->display_list(); std::cout<<std::endl;
+                            delete linked_list_ptr;
+                            linked_list_ptr = nullptr;
                         }
                         catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
                     }
+                }
+                if(linked_list_ptr != nullptr){
+                    delete linked_list_ptr;
+                    linked_list_ptr = nullptr;
                 }
                 delete stack_ptr;
                 a_ptr->clear_visit_numbers();

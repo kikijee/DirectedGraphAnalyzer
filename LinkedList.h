@@ -15,13 +15,11 @@ struct Node{
 class LinkedList{
     protected:
         Node *front_;
+        Node *rear_;
         int count_;
-        //int outDegree_;
-        //int visit_;
-        //char vertex_;
     public:
         // constructor
-        LinkedList():front_(nullptr), count_(0)/*,outDegree_(-1),visit_(0),vertex_(' ')*/{}
+        LinkedList():front_(nullptr), rear_(nullptr), count_(0){}
 
         // destructor
         ~LinkedList();
@@ -43,13 +41,15 @@ class LinkedList{
         void display_list();
 
         // adds new Node to the front of the linked list
-        void add_front(char);
+        void add_front(el_t);
 
         // adds new Node to rear of the linked list
-        void addRear();
+        void add_rear(el_t);
 
+        // deletes front of the linked list
         void delete_front();
 
+        // deletes rear of the linked list
         void deleteRear();
 
         //LinkedList(const AdjacentList&);
