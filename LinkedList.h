@@ -16,12 +16,12 @@ class LinkedList{
     protected:
         Node *front_;
         int count_;
-        int outDegree_;
-        int visit_;
-        char vertex_;
+        //int outDegree_;
+        //int visit_;
+        //char vertex_;
     public:
         // constructor
-        LinkedList():front_(nullptr), count_(0),outDegree_(-1),visit_(0),vertex_(' '){}
+        LinkedList():front_(nullptr), count_(0)/*,outDegree_(-1),visit_(0),vertex_(' ')*/{}
 
         // destructor
         ~LinkedList();

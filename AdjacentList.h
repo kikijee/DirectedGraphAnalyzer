@@ -10,8 +10,12 @@
 // adjacency list that holds 3 items (vertex, out degree, head pointer to adjacent verticies linked list)
 // constructor initializes defualt values
 class AdjacentList : public LinkedList{    
+    private:
+        int outDegree_;
+        int visit_;
+        char vertex_;
     public:
-        AdjacentList(){}
+        AdjacentList():outDegree_(-1),visit_(0),vertex_(' '){}
         //~AdjacentList();
 
         // getters 
