@@ -11,7 +11,7 @@ class Stack{
         int max_;
     public:
         // constructor
-        Stack(int max):max_(2*max),top_(-1){stack_ = new el_t[max_];}
+        Stack(int max):max_(max*max),top_(-1){stack_ = new el_t[max_];}
         // destructor
         ~Stack(){delete [] stack_;}
 

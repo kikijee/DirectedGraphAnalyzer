@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
+#include <string>
+#include <filesystem>
 #include "LinkedList.h"
 #include "AdjacentList.h"
 #include "DirectedGraph.h"
@@ -10,6 +12,7 @@
 int main(){
     std::string fname = "No file selected";
     std::string file;    
+    std::string var;
     char choice;
     int vertex_num;
     int case_num;
@@ -19,7 +22,7 @@ int main(){
     while(true){
         std::cout<<"...WELCOME TO THE DIRECTED GRAPH ANALYZER..."<<std::endl;
         std::cout<<"Please select from the options below"<<std::endl;
-        std::cout<<"1.) change input file\n2.) analysis of any given vertex through the adjacency list\n3.) visual of dijkstra algorithm through tables\n4.) visualization of DFS\n5.) exit analyzer"<<std::endl;
+        std::cout<<"1.) change input file\n2.) create a new directed graph\n3.) analysis of any given vertex through the adjacency list\n4.) visual of dijkstra algorithm through tables\n5.) visualization of DFS\n6.) visualization of BFS\n7.) exit analyzer"<<std::endl;
         std::cout<<"Current File: "<<fname<<std::endl;
         std::cout<<"=> ";
         std::cin >> case_num;
@@ -41,6 +44,7 @@ int main(){
                             a_ptr = new Area(vertex_num);
                             a_ptr->read_table(fin);
                             std::cout<<"...file read was a success, returning to main menu..."<<std::endl;
+                            fin.close();
                             break;
                         }
                         else{std::cout<<"...Please try again..."<<std::endl;}
@@ -51,7 +55,79 @@ int main(){
                 }
                 system("CLS");
                 break;
-            case 2:     // Adjacency table analysis
+            case 2:     // user to create their own directed graph
+                system("CLS");
+                while(true){
+                    std::cout<<"Please select from the options below"<<std::endl;
+                    std::cout<<"1.) Create your own directed graph\n2.) Generate a random directed graph\n3.) Return to main menu"<<std::endl;
+                    std::cout<<"=> ";
+                    std::cin >> case_num;
+                    switch(case_num){
+                        case 1:
+                            while(true){
+                                std::cout<<"Please enter a unique file name (include the .txt at the end) or type '/' to exit:"<<std::endl<<"=> ";
+                                std::cin >> file;
+                                if(file == "/"){break;}
+                                else if(!std::filesystem::exists(file)){              
+                                    std::cout<<"You have chosen \""<<file<<"\" is this correct? (y/n)"<<std::endl<<"=> ";
+                                    std::cin >> choice;                              
+                                    if(choice == 'Y' || choice == 'y'){                  
+                                        std::cout<<"How many vertices would you like to have(NOTE: LIMIT IS 26) or type '/' to exit:"<<std::endl<<"=> ";
+                                        std::cin >> var;                          
+                                        try{                                     
+                                            if(var == "/"){break;}              
+                                            else if(stoi(var) > 0 && stoi(var) <= 26){
+                                                std::string outDegree;        // variable to hold outdegrees
+                                                char vertex;                 // variable to hold vertex choices
+                                                int time;                   // variable to hold time choices
+                                                std::fstream fin (file.c_str(),std::ios::out);
+                                                fin<<var<<std::endl;      
+                                                for(int i = 0; i < stoi(var); i++){
+                                                    fin<<char(i+65)<<" ";
+                                                    std::cout<<"What is the out degree of vertex \""<<char(i+65)<<"\":"<<std::endl<<"=> ";
+                                                    std::cin>>outDegree;
+                                                    fin<<outDegree<<" ";
+                                                    for(int j = 0; j < stoi(outDegree); j++){
+                                                        std::cout<<"Adjacency "<<j+1<<", vertex "<<char(i+65)<<" to:"<<std::endl<<"=> ";
+                                                        std::cin>>vertex;
+                                                        if(int(vertex) >= 65 && int(vertex) <= 65 + stoi(var)){
+                                                            fin<<vertex<<" ";
+                                                            std::cout<<"Enter the amount of time to take:"<<std::endl<<"=> ";
+                                                            std::cin>>time;
+                                                            if(time >= 0){fin<<time<<" ";}
+                                                        }
+                                                        else{
+                                                            std::cout<<"Error: vertex \""<<vertex<<"\" does not exist within the number of verticies that you have chosen, please try again"<<std::endl;
+                                                            j--;
+                                                        }
+                                                    }
+                                                    fin<<std::endl;
+                                                }
+                                                break;
+                                            }
+                                            else{
+                                                system("CLS");
+                                                std::cout<<"...Invalid choice, please try again..."<<std::endl;
+                                            }
+                                        }
+                                        catch(std::invalid_argument){system("CLS");std::cerr<<"...Invalid choice, please try again..."<<std::endl;}
+                                    }
+                                    else{std::cout<<"..Please try again..."<<std::endl;}
+                                }
+                                else{std::cout<<"Error: file \""<<file<<"\" already exists, please try again"<<std::endl;}
+                            }
+                        case 2:
+                        case 3:
+                            system("CLS");
+                            break;
+                        default:
+                            system("CLS");
+                            std::cout<<"Error: Invalid choice, please try again..."<<std::endl;
+                            break;
+                    }
+                    if(case_num == 3){break;}
+                }
+            case 3:     // Adjacency table analysis
                 if(a_ptr == nullptr){std::cout<<"...Please select file to read from first..."<<std::endl;break;}
                 std::cout<<"ADJACENCY TABLE:"<<std::endl;
                 a_ptr->display_table();
@@ -69,7 +145,7 @@ int main(){
                 }
                 system("CLS");
                 break;
-            case 3:     // Dikstra's Algorithm
+            case 4:     // Dikstra's Algorithm
                 if(a_ptr == nullptr){std::cout<<"...Please select file to read from first..."<<std::endl;break;}
                 while(true){
                     std::cout<<"please enter vertex value to create shortest path table or type '/' to exit:"<<std::endl;
@@ -95,12 +171,11 @@ int main(){
                 }
                 system("CLS");
                 break;
-            case 4:     // Depth First search
+            case 5:     // Depth-First search
                 if(a_ptr == nullptr){std::cout<<"...Please select file to read from first..."<<std::endl;break;}
                 a_ptr->display_table();
                 Node *n_ptr;
                 stack_ptr = new Stack(vertex_num);
-                //linked_list_ptr = new LinkedList;
                 while(true){
                     int visit_num = 1;
                     std::cout<<"Please enter element to act as root or type '/' to exit:"<<std::endl;
@@ -152,7 +227,15 @@ int main(){
                 a_ptr->clear_visit_numbers();
                 system("CLS");
                 break;
-            case 5:     // Exit option
+            case 6:     // Breadth-First search
+                if(a_ptr == nullptr){system("CLS");std::cout<<"...Please select file to read from first..."<<std::endl;break;}
+                while(true){
+                    std::cout<<"hello"<<std::endl;
+                    break;
+                }
+                system("CLS");
+                break;
+            case 7:     // Exit option
                 if(a_ptr != nullptr){delete a_ptr;}
                 system("CLS");
                 break;
@@ -160,6 +243,6 @@ int main(){
                 std::cout<<"Error: Invalid choice please try again..."<<std::endl;
                 break;
         }
-        if(case_num == 5){break;}
+        if(case_num == 7){break;}
     }
 }
