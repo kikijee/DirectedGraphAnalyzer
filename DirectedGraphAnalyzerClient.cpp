@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string>
 #include <filesystem>
+#include <time.h>
 #include "LinkedList.h"
 #include "AdjacentList.h"
 #include "DirectedGraph.h"
@@ -19,6 +20,7 @@ int main(){
     Area* a_ptr = nullptr;      // when program first runs there is no defualt file selected, user must first select file
     Stack* stack_ptr = nullptr;
     LinkedList* linked_list_ptr = nullptr;
+    srand(time(NULL));
     while(true){
         std::cout<<"...WELCOME TO THE DIRECTED GRAPH ANALYZER..."<<std::endl;
         std::cout<<"Please select from the options below"<<std::endl;
@@ -55,7 +57,7 @@ int main(){
                 }
                 system("CLS");
                 break;
-            case 2:     // user to create their own directed graph
+            case 2:     // user to create their own directed graph or generate a random one 
                 system("CLS");
                 while(true){
                     std::cout<<"Please select from the options below"<<std::endl;
@@ -63,7 +65,7 @@ int main(){
                     std::cout<<"=> ";
                     std::cin >> case_num;
                     switch(case_num){
-                        case 1:
+                        case 1:     // option to create their own directed graph
                             while(true){
                                 std::cout<<"Please enter a unique file name (include the .txt at the end) or type '/' to exit:"<<std::endl<<"=> ";
                                 std::cin >> file;
@@ -105,10 +107,7 @@ int main(){
                                                 }
                                                 break;
                                             }
-                                            else{
-                                                system("CLS");
-                                                std::cout<<"...Invalid choice, please try again..."<<std::endl;
-                                            }
+                                            else{system("CLS");std::cout<<"...Invalid choice, please try again..."<<std::endl;}
                                         }
                                         catch(std::invalid_argument){system("CLS");std::cerr<<"...Invalid choice, please try again..."<<std::endl;}
                                     }
@@ -116,8 +115,58 @@ int main(){
                                 }
                                 else{std::cout<<"Error: file \""<<file<<"\" already exists, please try again"<<std::endl;}
                             }
-                        case 2:
-                        case 3:
+                        case 2:     // option to randomize a directced graph
+                            while(true){
+                                std::cout<<"Please enter a unique file name (include the .txt at the end) or type '/' to exit:"<<std::endl<<"=> ";
+                                std::cin >> file;
+                                if(file == "/"){break;}
+                                else if(!std::filesystem::exists(file)){              
+                                    std::cout<<"You have chosen \""<<file<<"\" is this correct? (y/n)"<<std::endl<<"=> ";
+                                    std::cin >> choice;
+                                    if(choice == 'y' || choice == 'Y'){
+                                        std::cout<<"How many vertices would you like to have(NOTE: LIMIT IS 26) or type '/' to exit:"<<std::endl<<"=> ";
+                                        std::cin >> var;                          
+                                        try{                                     
+                                            if(var == "/"){break;}              
+                                            else if(stoi(var) > 0 && stoi(var) <= 26){
+                                                std::fstream fin (file.c_str(),std::ios::out);
+                                                int lowOut;
+                                                int upOut;
+                                                int lowTime;
+                                                int upTime;
+                                                int outDegree;
+                                                int verticies = stoi(var);
+                                                std::cout<<"What would you like the lower bound of out-degree be?"<<std::endl<<"=> ";
+                                                std::cin>>lowOut;
+                                                std::cout<<"Upper bound?"<<std::endl<<"=> ";
+                                                std::cin>>upOut; 
+                                                std::cout<<"What would you like the lower bound of time be?"<<std::endl<<"=> ";
+                                                std::cin>>lowTime;
+                                                std::cout<<"Upper bound?"<<std::endl<<"=> ";
+                                                std::cin>>upTime;
+                                                fin<<var<<std::endl;
+                                                for(int i = 0; i < stoi(var); i++){
+                                                    fin<<char(i+65)<<" ";
+                                                    outDegree = rand() % upOut + lowOut;
+                                                    fin<<outDegree<<" ";
+                                                    for(int j = 0; j < outDegree; j++){
+                                                        fin<<char(rand() % (verticies-1) + 65)<<" ";
+                                                        fin<<rand() % upTime + lowTime<<" ";
+                                                    }
+                                                    fin<<std::endl;
+                                                }
+                                                system("CLS");
+                                                break;
+                                            }
+                                            else{system("CLS");std::cout<<"...Invalid choice, please try again..."<<std::endl;}
+                                        }
+                                        catch(std::invalid_argument){system("CLS");std::cerr<<"...Invalid choice please try again..."<<std::endl;}
+                                    }
+                                    else{std::cout<<"...Please try again..."<<std::endl;}
+                                }
+                                else{std::cout<<"Error: file \""<<file<<"\" already exists, please try again"<<std::endl;}    
+                            }                          
+                        case 3:     // exit option
                             system("CLS");
                             break;
                         default:
