@@ -15,6 +15,7 @@ void LinkedList::display_list(){
         }
         std::cout<<" ]";
     }
+    std::cout<<std::endl;
 }
 
 void LinkedList::add_front(el_t vertex){
@@ -42,25 +43,29 @@ void LinkedList::add_rear(el_t vertex){
     count_++;
 }
 
-void LinkedList::delete_front(){
-    if(this->isEmpty()){return;}
+el_t LinkedList::delete_front(){
+    el_t elem;
+    if(this->isEmpty()){return elem;}
     else if(front_->next_ == nullptr){
+        elem = front_->vertex_;
         delete front_;
         front_ = nullptr;
         rear_ = nullptr;
     }
     else{
+        elem = front_->vertex_;
         Node* p = front_;
         front_ = front_->next_;
         delete p;
     }
     count_--;
+    return elem;
 }
 
 void LinkedList::deleteRear(){}
 
 LinkedList::~LinkedList(){
-    std::cout<<"...Adjacent List Destructor Called..."<<std::endl;
+    std::cout<<"...Linked List Destructor Called..."<<std::endl;
     while(front_ != nullptr){
         this->delete_front();
     }

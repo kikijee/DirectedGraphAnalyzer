@@ -47,7 +47,7 @@ class LinkedList{
         void add_rear(el_t);
 
         // deletes front of the linked list
-        void delete_front();
+        el_t delete_front();
 
         // deletes rear of the linked list
         void deleteRear();

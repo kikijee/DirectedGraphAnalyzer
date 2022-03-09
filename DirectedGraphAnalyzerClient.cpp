@@ -4,6 +4,7 @@
 #include <string>
 #include <filesystem>
 #include <time.h>
+#include <limits>
 #include "LinkedList.h"
 #include "AdjacentList.h"
 #include "DirectedGraph.h"
@@ -19,14 +20,18 @@ int main(){
     int case_num;
     Area* a_ptr = nullptr;      // when program first runs there is no defualt file selected, user must first select file
     Stack* stack_ptr = nullptr;
+    LinkedList* queue_ptr = nullptr;
     LinkedList* linked_list_ptr = nullptr;
+    Node *n_ptr = nullptr;
     srand(time(NULL));
+    system("CLS");
     while(true){
         std::cout<<"...WELCOME TO THE DIRECTED GRAPH ANALYZER..."<<std::endl;
         std::cout<<"Please select from the options below"<<std::endl;
         std::cout<<"1.) change input file\n2.) create a new directed graph\n3.) analysis of any given vertex through the adjacency list\n4.) visual of dijkstra algorithm through tables\n5.) visualization of DFS\n6.) visualization of BFS\n7.) exit analyzer"<<std::endl;
         std::cout<<"Current File: "<<fname<<std::endl;
         std::cout<<"=> ";
+        std::cin.sync();
         std::cin >> case_num;
         switch(case_num){
             case 1:     // file select
@@ -34,7 +39,7 @@ int main(){
                     std::cout<<"Please enter the file name that you would like to process, other wise type '/' to exit"<<std::endl;
                     std::cout<<"=> ";
                     std::cin >> file;
-                    if(file == "/"){break;}
+                    if(file == "/"){system("CLS");break;}
                     std::fstream fin (file.c_str(),std::ios::in);
                     if(fin.is_open()){
                         std::cout<<"You have selected: \""<<file<<"\" is this correct? (y/n)"<<std::endl<<"=> ";
@@ -59,12 +64,13 @@ int main(){
                 break;
             case 2:     // user to create their own directed graph or generate a random one 
                 system("CLS");
+                int case_num2;
                 while(true){
                     std::cout<<"Please select from the options below"<<std::endl;
                     std::cout<<"1.) Create your own directed graph\n2.) Generate a random directed graph\n3.) Return to main menu"<<std::endl;
                     std::cout<<"=> ";
-                    std::cin >> case_num;
-                    switch(case_num){
+                    std::cin >> case_num2;
+                    switch(case_num2){
                         case 1:     // option to create their own directed graph
                             while(true){
                                 std::cout<<"Please enter a unique file name (include the .txt at the end) or type '/' to exit:"<<std::endl<<"=> ";
@@ -115,6 +121,8 @@ int main(){
                                 }
                                 else{std::cout<<"Error: file \""<<file<<"\" already exists, please try again"<<std::endl;}
                             }
+                            system("CLS");
+                            break;
                         case 2:     // option to randomize a directced graph
                             while(true){
                                 std::cout<<"Please enter a unique file name (include the .txt at the end) or type '/' to exit:"<<std::endl<<"=> ";
@@ -130,11 +138,11 @@ int main(){
                                             if(var == "/"){break;}              
                                             else if(stoi(var) > 0 && stoi(var) <= 26){
                                                 std::fstream fin (file.c_str(),std::ios::out);
-                                                int lowOut;
-                                                int upOut;
-                                                int lowTime;
-                                                int upTime;
-                                                int outDegree;
+                                                int lowOut;     // lower bound out degree
+                                                int upOut;      // upper bound out degree
+                                                int lowTime;    // lower bound time 
+                                                int upTime;     // upper bound time
+                                                int outDegree;  // out degree to output to file
                                                 int verticies = stoi(var);
                                                 std::cout<<"What would you like the lower bound of out-degree be?"<<std::endl<<"=> ";
                                                 std::cin>>lowOut;
@@ -155,7 +163,7 @@ int main(){
                                                     }
                                                     fin<<std::endl;
                                                 }
-                                                system("CLS");
+                                                //system("CLS");
                                                 break;
                                             }
                                             else{system("CLS");std::cout<<"...Invalid choice, please try again..."<<std::endl;}
@@ -166,16 +174,16 @@ int main(){
                                 }
                                 else{std::cout<<"Error: file \""<<file<<"\" already exists, please try again"<<std::endl;}    
                             }                          
-                        case 3:     // exit option
+                        case 3:     // exit option               
                             system("CLS");
                             break;
                         default:
-                            system("CLS");
                             std::cout<<"Error: Invalid choice, please try again..."<<std::endl;
                             break;
                     }
-                    if(case_num == 3){break;}
+                    if(case_num2 == 3){break;}
                 }
+                break;
             case 3:     // Adjacency table analysis
                 if(a_ptr == nullptr){std::cout<<"...Please select file to read from first..."<<std::endl;break;}
                 std::cout<<"ADJACENCY TABLE:"<<std::endl;
@@ -223,11 +231,11 @@ int main(){
             case 5:     // Depth-First search
                 if(a_ptr == nullptr){std::cout<<"...Please select file to read from first..."<<std::endl;break;}
                 a_ptr->display_table();
-                Node *n_ptr;
+                //Node *n_ptr;
                 stack_ptr = new Stack(vertex_num);
                 while(true){
                     int visit_num = 1;
-                    std::cout<<"Please enter element to act as root or type '/' to exit:"<<std::endl;
+                    std::cout<<"Please enter element to act as root or type '/' to exit\n=>";
                     std::cin>>choice;
                     if(choice == '/'){break;}
                     else{
@@ -272,16 +280,67 @@ int main(){
                     delete linked_list_ptr;
                     linked_list_ptr = nullptr;
                 }
+                if(n_ptr != nullptr){n_ptr = nullptr;}
                 delete stack_ptr;
                 a_ptr->clear_visit_numbers();
                 system("CLS");
                 break;
             case 6:     // Breadth-First search
                 if(a_ptr == nullptr){system("CLS");std::cout<<"...Please select file to read from first..."<<std::endl;break;}
+                a_ptr->display_table();
+                //Node *n_ptr;
+                queue_ptr = new LinkedList;
                 while(true){
-                    std::cout<<"hello"<<std::endl;
-                    break;
+                    int visit_num = 1;
+                    std::cout<<"Please enter element to act as root or type '/' to exit:\n=>";
+                    std::cin>>choice;
+                    if(choice == '/'){break;}
+                    else{
+                        try{
+                            linked_list_ptr = new LinkedList;
+                            queue_ptr->add_rear(choice);
+                            while(!queue_ptr->isEmpty()){
+                                try{
+                                    choice = queue_ptr->delete_front();
+                                    std::cout<<"removed "<<choice<<" from the queue"<<std::endl;
+                                    if(!a_ptr->is_marked(choice)){
+                                        linked_list_ptr->add_rear(choice);
+                                        a_ptr->visit(visit_num,choice);
+                                        std::cout<<"Visit "<<choice<<" as "<<visit_num<<std::endl;
+                                        visit_num++;
+                                        if(a_ptr->find_out_degree(choice) == 0){std::cout<<"Deadend reached - backup."<<std::endl;}
+                                        else{
+                                            n_ptr = a_ptr->find_adjacent(choice);
+                                            while(n_ptr != nullptr){
+                                                queue_ptr->add_rear(n_ptr->vertex_);
+                                                n_ptr = n_ptr->next_;
+                                            }
+                                        }
+                                    }    
+                                    else{std::cout<<choice<<" has been visited already - backup."<<std::endl;}
+                                    std::cout<<"queue is:"<<std::endl;
+                                    queue_ptr->display_list();
+                                }
+                                catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
+
+                            }
+                            a_ptr->display_table();
+                            a_ptr->clear_visit_numbers();
+                            std::cout<<std::endl<<"Elements in ascending visit number order:"<<std::endl;
+                            linked_list_ptr->display_list(); std::cout<<std::endl;
+                            delete linked_list_ptr;
+                            linked_list_ptr = nullptr;
+                        }
+                        catch(Area::BadVertex){std::cerr<<"Error: no such vertex exists"<<std::endl;}
+                    }
                 }
+                if(linked_list_ptr != nullptr){
+                    delete linked_list_ptr;
+                    linked_list_ptr = nullptr;
+                }
+                if(n_ptr != nullptr){n_ptr = nullptr;}
+                delete queue_ptr;
+                a_ptr->clear_visit_numbers();
                 system("CLS");
                 break;
             case 7:     // Exit option
