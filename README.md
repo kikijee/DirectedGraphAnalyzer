@@ -19,4 +19,32 @@ Additional features include:
 
 2.) option to create your own directed graph or randomize one during runtime, both of these options create new text files which are ready to be used.
 
+Files descriptions and functionalities:
+
+DirectedGraphAnalyzerClient.cpp
+-This file houses the main function that implements a switch statement to serve as the main menu for users to select given options, options include:
+  1.) change input file
+  2.) create a new directed graph
+  3.) analysis of vertex's through an adjacency list
+  4.) visual of Dijkstra's algorithm through table
+  5.) visualization of DFS through stack data structure
+  6.) visualization of BFs through queue data structure
+  7.) exit program
+  
+  LinkedList.h / LinkedList.cpp
+  Purpose:
+  Functions:
+  
+  AdajacencyList.h / AdjacencyList.cpp
+  Purpose:
+  Functions:
+  
+  Stack.h / Stack.cpp
+  Purpose:
+  Functions:
+  
+  DirectedGraph.h / DirectedGraph.cpp
+  Purpose:
+  Functions:
+  
 This project is still very much a work in progress, thank you for viewing!
