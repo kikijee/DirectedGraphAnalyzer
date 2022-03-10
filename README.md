@@ -22,6 +22,7 @@ Additional features include:
 Files descriptions and functionalities:
 
 DirectedGraphAnalyzerClient.cpp
+
 -This file houses the main function that implements a switch statement to serve as the main menu for users to select given options, options include:
 
   1.) change input file
