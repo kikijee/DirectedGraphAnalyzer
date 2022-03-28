@@ -18,6 +18,7 @@ int main(){
     char choice;
     int vertex_num;
     int case_num;
+    int time_complexity;
     Area* a_ptr = nullptr;      // when program first runs there is no defualt file selected, user must first select file
     Stack* stack_ptr = nullptr;
     LinkedList* queue_ptr = nullptr;
@@ -233,6 +234,7 @@ int main(){
                 a_ptr->display_table();
                 //Node *n_ptr;
                 stack_ptr = new Stack(vertex_num);
+                time_complexity = 0;
                 while(true){
                     int visit_num = 1;
                     std::cout<<"Please enter element to act as root or type '/' to exit\n=>";
@@ -244,6 +246,7 @@ int main(){
                             stack_ptr->push(choice);    // choosing element to act as the root 
                             while(!stack_ptr->stack_is_empty()){
                                 try{
+                                    time_complexity++;
                                     stack_ptr->pop(choice);
                                     std::cout<<"removed "<<choice<<" from stack"<<std::endl;
                                     if(!a_ptr->is_marked(choice)){
@@ -270,6 +273,8 @@ int main(){
                             a_ptr->clear_visit_numbers();
                             std::cout<<std::endl<<"Elements in ascending visit number order:"<<std::endl;
                             linked_list_ptr->display_list(); std::cout<<std::endl;
+                            std::cout<<"\nNumber of loop iterations: "<<time_complexity<<std::endl;
+                            time_complexity = 0;
                             delete linked_list_ptr;
                             linked_list_ptr = nullptr;
                         }
@@ -290,6 +295,7 @@ int main(){
                 a_ptr->display_table();
                 //Node *n_ptr;
                 queue_ptr = new LinkedList;
+                time_complexity = 0;
                 while(true){
                     int visit_num = 1;
                     std::cout<<"Please enter element to act as root or type '/' to exit:\n=>";
@@ -301,6 +307,7 @@ int main(){
                             queue_ptr->add_rear(choice);
                             while(!queue_ptr->isEmpty()){
                                 try{
+                                    time_complexity++;
                                     choice = queue_ptr->delete_front();
                                     std::cout<<"removed "<<choice<<" from the queue"<<std::endl;
                                     if(!a_ptr->is_marked(choice)){
@@ -328,6 +335,8 @@ int main(){
                             a_ptr->clear_visit_numbers();
                             std::cout<<std::endl<<"Elements in ascending visit number order:"<<std::endl;
                             linked_list_ptr->display_list(); std::cout<<std::endl;
+                            std::cout<<"\nNumber of loop iterations: "<<time_complexity<<std::endl;
+                            time_complexity = 0;
                             delete linked_list_ptr;
                             linked_list_ptr = nullptr;
                         }
