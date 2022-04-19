@@ -1,12 +1,12 @@
 # Directed Graph Analyzer
 
-This program is made for anlysis of different directed graph algorithms, the edges weight is measured in time from vertex to vertex. vertex's allowed are A-Z so limit of vertex's for this program is 26 for the time being.
+This program is made for analysis of different directed graph algorithms, the edge's weight is measured in time from vertex to vertex. vertex's allowed are A-Z so the limit of vertex's for this program is 26 for the time being.
 
-This is a simple program to read certian text files to translate them into a adjacency list effectivley making a directed graph for the user to analyze visually through 
+This is a simple program to read certain text files to translate them into a adjacency list effectively making a directed graph for the user to analyze visually through 
 the terminal, current analysis options are:
 
 1.) adjacency list analysis when chosen outputs the adjacency list in a clean format then prompts user to select a vertex "A-Z"
-to look up specifically its out degree, the adjacent vertex's and the amount of time it would take to travel to such vertex (# located in the paranthesis).
+to look up specifically its out degree, the adjacent vertex and the amount of time it would take to travel to such vertex (# located in the parenthesis).
 
 2.) create a "shortest path table" through the use of Dijkstra's algorithm that allows the user to construct the table and look up specific paths and the shortest amount of time from vertex to vertex.
 
@@ -67,3 +67,5 @@ to look up specifically its out degree, the adjacent vertex's and the amount of 
   *Functions:
   
 This project is still very much a work in progress, thank you for viewing!
+
+
