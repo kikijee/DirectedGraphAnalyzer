@@ -18,7 +18,7 @@ int main(){
     char choice;
     int vertex_num;
     int case_num;
-    int time_complexity;
+    int time_complexity;        // used when counting loop iterations and comparisons
     Area* a_ptr = nullptr;      // when program first runs there is no defualt file selected, user must first select file
     Stack* stack_ptr = nullptr;
     LinkedList* queue_ptr = nullptr;
