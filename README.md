@@ -20,7 +20,7 @@ to look up specifically its out degree, the adjacent vertex and the amount of ti
 
 2.) option to create your own directed graph or randomize one during runtime, both of these options create new text files which are ready to be used.
 
-# Files descriptions and functionalities:
+## Files descriptions and functionalities:
 
   ### DirectedGraphAnalyzerClient.cpp
 
@@ -66,6 +66,13 @@ to look up specifically its out degree, the adjacent vertex and the amount of ti
   
   *Functions:*
   
+  ## How To Run:
+
+  **Windows:** <br/>
+  &nbsp; *To Compile:* <br/>
+  &nbsp;```.\Build.bat``` <br/>
+  &nbsp; *To Run:* <br/>
+  &nbsp;```.\DirectedGraphAnalyzerTest.exe``` <br/><br/>
 This project is still very much a work in progress, thank you for viewing!
 
 
