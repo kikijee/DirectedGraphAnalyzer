@@ -159,7 +159,7 @@ int main(){
                                                     outDegree = rand() % upOut + lowOut;
                                                     fin<<outDegree<<" ";
                                                     for(int j = 0; j < outDegree; j++){
-                                                        fin<<char(rand() % (verticies-1) + 65)<<" ";
+                                                        fin<<char(rand() % (verticies) + 65)<<" ";
                                                         fin<<rand() % upTime + lowTime<<" ";
                                                     }
                                                     fin<<std::endl;

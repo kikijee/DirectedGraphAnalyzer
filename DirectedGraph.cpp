@@ -11,6 +11,7 @@ void Area::read_table(std::fstream &fin){
         arr_adjacency[count].set_vertex(vertex);
         fin >> outDegree;
         arr_adjacency[count].set_outDegree(outDegree);
+        num_edges_ += outDegree;
         for(int i = 0; i < arr_adjacency[count].return_outDegree(); i++){
             fin>>vertex;
             fin>>time;
@@ -26,6 +27,7 @@ void Area::display_table(){
         arr_adjacency[i].display_list();
         std::cout<<std::endl;
     }
+    std::cout<<"Number of Verticies: "<<num_verticies_<<std::endl<<"Number of Edges: "<<num_edges_<<std::endl;
 }
 
 int Area::find_out_degree(char temp){

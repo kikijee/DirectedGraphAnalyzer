@@ -16,13 +16,14 @@ struct ShortestPathTable{
 class Area{
 private:
     int num_verticies_;
+    int num_edges_;
     char tree_;
     AdjacentList* arr_adjacency;                // pointer to AdjacenList to point to array holding AdjacentList objects
     ShortestPathTable* arr_shortest_path_table; // pointer to ShortestPathTable to point to array holding SPT objects
 public:
 // constructor takes one parameter being the total number of vertices which initializes num_vertices which then 
 // allocates that certain amount of space in the heap for arr_adjacency and arr_shortest_path_table
-    Area(int num):num_verticies_(num),tree_(' '){
+    Area(int num):num_verticies_(num),num_edges_(0),tree_(' '){
         arr_adjacency = new AdjacentList[num_verticies_];
         arr_shortest_path_table = new ShortestPathTable[num_verticies_];
     }
