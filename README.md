@@ -1,5 +1,5 @@
 # Directed Graph Analyzer
-
+## Description:
 This program is made for analysis of different directed graph algorithms, the edge's weight is measured in time from vertex to vertex. vertex's allowed are A-Z so the limit of vertex's for this program is 26 for the time being.
 
 This is a simple program to read certain text files to translate them into a adjacency list effectively making a directed graph for the user to analyze visually through 
@@ -14,17 +14,17 @@ to look up specifically its out degree, the adjacent vertex and the amount of ti
 
 4.) visualizations of a Breadth first iteration through the use of a queue data structure that shows step by step of the visit iterations of how a BFS traversal visits certain vertex's, depending on the chosen vertex to act as the root.
 
-##**Additional features include:
+### Additional features include:
 
 1.) The option to switch text files during runtime.
 
 2.) option to create your own directed graph or randomize one during runtime, both of these options create new text files which are ready to be used.
 
-#**Files descriptions and functionalities:
+## Files descriptions and functionalities:
 
-  ##**DirectedGraphAnalyzerClient.cpp
+  ### DirectedGraphAnalyzerClient.cpp
 
-  *Purpose:
+  *Purpose:*
 
   -This file houses the main function that implements a switch statement to serve as the main menu for users to select given options, options include:
 
@@ -42,30 +42,37 @@ to look up specifically its out degree, the adjacent vertex and the amount of ti
   
   7.) exit program
   
-  ##**LinkedList.h / LinkedList.cpp
+  ### LinkedList.h / LinkedList.cpp
   
-  *Purpose:
+  *Purpose:*
   
-  *Functions:
+  *Functions:*
   
-  ##**AdajacencyList.h / AdjacencyList.cpp
+  ### AdajacencyList.h / AdjacencyList.cpp
   
-  *Purpose:
+  *Purpose:*
   
-  *Functions:
+  *Functions:*
   
-  ##**Stack.h / Stack.cpp
+  ### Stack.h / Stack.cpp
   
-  *Purpose:
+  *Purpose:*
   
-  *Functions:
+  *Functions:*
   
-  ##**DirectedGraph.h / DirectedGraph.cpp
+  ### DirectedGraph.h / DirectedGraph.cpp
   
-  *Purpose:
+  *Purpose:*
   
-  *Functions:
+  *Functions:*
   
+  ## How To Run:
+
+  **Windows:** <br/>
+  &nbsp; *To Compile:* <br/>
+  &nbsp;```.\Build.bat``` <br/>
+  &nbsp; *To Run:* <br/>
+  &nbsp;```.\DirectedGraphAnalyzerTest.exe``` <br/><br/>
 This project is still very much a work in progress, thank you for viewing!
 
 
